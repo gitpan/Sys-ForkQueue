@@ -1,6 +1,6 @@
 package Sys::ForkQueue;
 {
-  $Sys::ForkQueue::VERSION = '0.11';
+  $Sys::ForkQueue::VERSION = '0.12';
 }
 BEGIN {
   $Sys::ForkQueue::AUTHORITY = 'cpan:TEX';
@@ -96,6 +96,12 @@ has 'setsid' => (
     'default' => 0,
 );
 
+has 'delayedfork' => (
+    'is'    => 'rw',
+    'isa'   => 'Bool',
+    'default' => 1,
+);
+
 with qw(Log::Tree::RequiredLogger);
 
 sub _num_cores {
@@ -139,7 +145,7 @@ sub run {
                     $forks_running++;
                     $childs_running{$pid} = 1;
                     ## no critic (ProhibitSleepViaSelect)
-                    select undef, undef, undef, 0.1;
+                    select undef, undef, undef, 0.1 if $self->delayedfork();
                     ## use critic
                 }
                 elsif ( defined $pid ) {
@@ -360,6 +366,11 @@ Change to this directory after fork()ing.
 =head2 setsid
 
 Call setsid after fork().
+
+=head2 delayedfork
+
+Sleep for a brief time after fork. Set this to false
+if you plan to run many short lived jobs.
 
 =head1 NAME
 

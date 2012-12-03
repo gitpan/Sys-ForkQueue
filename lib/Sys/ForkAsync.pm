@@ -1,6 +1,6 @@
 package Sys::ForkAsync;
 {
-  $Sys::ForkAsync::VERSION = '0.11';
+  $Sys::ForkAsync::VERSION = '0.12';
 }
 BEGIN {
   $Sys::ForkAsync::AUTHORITY = 'cpan:TEX';
@@ -44,6 +44,11 @@ has 'setsid' => (
     'is'      => 'rw',
     'isa'     => 'Bool',
     'default' => 0,
+);
+
+has 'name' => (
+    'is'    => 'ro',
+    'isa'   => 'Str',
 );
 
 sub dispatch {
@@ -103,6 +108,8 @@ sub dispatch {
             ## use critic
             my $ppid = getppid();
 
+            $0 = $self->name() if $self->name();
+
             my $t0     = time();                                  # starttime
             my $status = &{$code_ref}( 'ForkAsync', $arg_ref );
             my $d0     = time() - $t0;                            # duration
@@ -157,11 +164,31 @@ Sys::ForkAsync - Simple async one-time job
 
 Run a system command asynchronous.
 
-=head1 NAME
+=head1 ATTRIBUTES
 
-Sys::ForkAsync - Run async commands
+=head2 chdir
 
-=head1 SUBROUTINES/METHODS
+Change to this directory after the fork.
+
+=head2 redirect_output
+
+If set to true the output of the child will
+be redirected to /dev/null.
+
+=head2 close_fhs
+
+Close all open filehandles after the fork
+to prevent unsynchronized file I/O
+
+=head2 setsid
+
+Create its own process group.
+
+=head2 name
+
+Set the process name to this string, if set.
+
+=head1 METHODS
 
 =head2 dispatch
 
@@ -172,6 +199,10 @@ Run the command in its own fork.
 Imported from Errno.
 
 1; # End of Linux::ForkAsync
+
+=head1 NAME
+
+Sys::ForkAsync - Run async commands
 
 =head1 AUTHOR
 

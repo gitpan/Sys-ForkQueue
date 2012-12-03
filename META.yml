@@ -28,5 +28,5 @@ requires:
 resources:
   bugtracker: https://github.com/gittex/Sys-ForkQueue/issues
   repository: git://github.com/gittex/Sys-ForkQueue.git
-version: 0.11
+version: 0.12
 x_authority: cpan:TEX

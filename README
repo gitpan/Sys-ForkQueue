@@ -51,6 +51,10 @@ ATTRIBUTES
   setsid
     Call setsid after fork().
 
+  delayedfork
+    Sleep for a brief time after fork. Set this to false if you plan to run
+    many short lived jobs.
+
 NAME
     Sys::ForkQueue - Run any number of jobs in a controlled manner in
     parallel.
