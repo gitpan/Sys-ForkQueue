@@ -1,6 +1,6 @@
 package Sys::ForkQueue;
 {
-  $Sys::ForkQueue::VERSION = '0.12';
+  $Sys::ForkQueue::VERSION = '0.14';
 }
 BEGIN {
   $Sys::ForkQueue::AUTHORITY = 'cpan:TEX';

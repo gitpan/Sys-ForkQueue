@@ -1,6 +1,6 @@
 package Sys::ForkAsync;
 {
-  $Sys::ForkAsync::VERSION = '0.12';
+  $Sys::ForkAsync::VERSION = '0.14';
 }
 BEGIN {
   $Sys::ForkAsync::AUTHORITY = 'cpan:TEX';
